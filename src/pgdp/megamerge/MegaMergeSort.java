@@ -46,14 +46,50 @@ public class MegaMergeSort {
 	 * @return the resulting array
 	 */
 	protected int[] merge(int[] arr1, int[] arr2) {
-		// TODO
-		return null;
+		/*int i2 = 0;
+		int[] merge12 = new int[arr1.length + arr2.length];
+		for (int i = 0; i < arr1.length + arr2.length; i++) {
+			if (i2 == arr2.length - 1) {
+				merge12[i] = arr1[i];
+			} else if (arr1[i] <= arr2[i2]) {
+				merge12[i] = arr1[i];
+			} else {
+				merge12[i] = arr2[i2];
+				i2++;
+			}
+		}
+		return merge12;*/
+
+		//Code von merge() aus Präsenzaufgabe kopiert, da Johannes Stöhr auf Zulip bestätigt hat, dass man es nutzen darf
+
+		int[] merged = new int[arr1.length + arr2.length];
+		int nextPositionFirst = 0;
+		int nextPositionSecond = 0;
+		int nextPositionMerged = 0;
+
+		while(!(nextPositionFirst >= arr1.length) && !(nextPositionSecond >= arr2.length)) {
+			if(arr1[nextPositionFirst] < arr2[nextPositionSecond]) {
+				merged[nextPositionMerged++] = arr1[nextPositionFirst++];
+			} else {
+				merged[nextPositionMerged++] = arr2[nextPositionSecond++];
+			}
+		}
+
+		while(nextPositionFirst < arr1.length) {
+			merged[nextPositionMerged++] = arr1[nextPositionFirst++];
+		}
+		while(nextPositionSecond < arr2.length) {
+			merged[nextPositionMerged++] = arr2[nextPositionSecond++];
+		}
+
+		return merged;
 	}
 
 	public static void main(String[] args) {
-		MegaMergeSort mms = new MegaMergeSort();
+		/*MegaMergeSort mms = new MegaMergeSort();
 		int[] arr = new int[] { 1, 2, 6, 7, 4, 3, 8, 9, 0, 5 };
 		int[] res = mms.megaMergeSort(arr, 4);
-		System.out.println(Arrays.toString(res));
+		System.out.println(Arrays.toString(res));*/
+		//System.out.println(Arrays.toString(merge(new int[] {1, 2, 4}, new int[] {2, 5, 6})));
 	}
 }
