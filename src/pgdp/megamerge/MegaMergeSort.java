@@ -34,11 +34,19 @@ public class MegaMergeSort {
 	 * @param to upper bound (exclusive)
 	 * @return the merged array
 	 */
-	protected int[] merge(int[][] arrays, int from, int to) {
+	public static int[] merge(int[][] arrays, int from, int to) {
+		return m_go(arrays, from, to, new int[0]);
+	}
+
+	public static int[] m_go(int[][] arrays, int from, int to, int[] m_merged) {
+		int[] merge2;
 		if (to - 1 - from > 0) {
-			return merge(arrays[to - 2], arrays[to - 1]);
+			//return merge(arrays[to - 2], merge(arrays, to - 2, to - 1));
+			m_merged = merge(arrays[to - 2], arrays[to - 1]);
+			arrays[to - 2] = m_merged;
+			return m_go(arrays, from, to - 1, m_merged);
 		} else {
-			return null;
+			return m_merged;
 		}
 	}
 
@@ -48,7 +56,7 @@ public class MegaMergeSort {
 	 * @param arr2 the second array
 	 * @return the resulting array
 	 */
-	protected int[] merge(int[] arr1, int[] arr2) {
+	public static int[] merge(int[] arr1, int[] arr2) {
 		/*int im = 0;
 		int i2 = 0;
 		int[] merge12 = new int[arr1.length + arr2.length];
@@ -95,5 +103,7 @@ public class MegaMergeSort {
 		int[] arr = new int[] { 1, 2, 6, 7, 4, 3, 8, 9, 0, 5 };
 		int[] res = mms.megaMergeSort(arr, 4);
 		System.out.println(Arrays.toString(res));*/
+		int[][] arrays = new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {7, 8, 9}, {5, 6, 7}};
+		System.out.println(Arrays.toString(merge(arrays, 0, 4)));
 	}
 }
