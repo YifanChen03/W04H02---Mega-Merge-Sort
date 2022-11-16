@@ -35,8 +35,11 @@ public class MegaMergeSort {
 	 * @return the merged array
 	 */
 	protected int[] merge(int[][] arrays, int from, int to) {
-		// TODO
-		return null;
+		if (to - 1 - from > 0) {
+			return merge(arrays[to - 2], arrays[to - 1]);
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -46,7 +49,8 @@ public class MegaMergeSort {
 	 * @return the resulting array
 	 */
 	protected int[] merge(int[] arr1, int[] arr2) {
-		/*int i2 = 0;
+		/*int im = 0;
+		int i2 = 0;
 		int[] merge12 = new int[arr1.length + arr2.length];
 		for (int i = 0; i < arr1.length + arr2.length; i++) {
 			if (i2 == arr2.length - 1) {
@@ -57,6 +61,7 @@ public class MegaMergeSort {
 				merge12[i] = arr2[i2];
 				i2++;
 			}
+			im++;
 		}
 		return merge12;*/
 
@@ -90,6 +95,5 @@ public class MegaMergeSort {
 		int[] arr = new int[] { 1, 2, 6, 7, 4, 3, 8, 9, 0, 5 };
 		int[] res = mms.megaMergeSort(arr, 4);
 		System.out.println(Arrays.toString(res));*/
-		//System.out.println(Arrays.toString(merge(new int[] {1, 2, 4}, new int[] {2, 5, 6})));
 	}
 }
