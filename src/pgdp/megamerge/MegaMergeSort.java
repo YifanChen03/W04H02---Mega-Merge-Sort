@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 public class MegaMergeSort {
 
+	public static int c = 0;
+
 	/**
 	 * Sorts the array using mega merge sort with div splits
 	 * @param array the array to be sorted
@@ -11,7 +13,6 @@ public class MegaMergeSort {
 	 * @return the sorted array
 	 */
 	protected int[] megaMergeSort(int[] array, int div) {
-		//megaMergeSort mit verschiedenen Arrays aus divs[][] ausführen
 		return megaMergeSort(array, div, 0, array.length);
 	}
 
@@ -24,21 +25,33 @@ public class MegaMergeSort {
 	 * @return the sorted array
 	 */
 	protected int[] megaMergeSort(int[] array, int div, int from, int to) {
-		int[][] divs = new int[to - from][];
-		int i = 0;
+		int[][] merged_divs = new int[to - from][];
+
+		//catche falls div = 0
+		if (div == 0 || div == 1) {
+			return new int[0];
+		}
 		//catch falls zwischen to und from kein Eintrag oder Array leer oder null
 		if (to - from < 1 || array.length == 0 || array == null) {
 			return new int[0];
 		}
 
-		int[] t = mMS_helper(array, div, from, to);
-		System.out.println(Arrays.toString(t));
-		//füge Werte von t in neues zweidimensionales Array ein falls Arrays Länge == 1
-		return null;
+		//catche falls array Länge 1 hat
+		if (array.length == 1) {
+			return array;
+		}
+
+		mMS_helper(array, div, from, to, merged_divs);
+		return merge(merged_divs, 0, merged_divs.length);
 	}
 
-	protected int[] mMS_helper(int[] array, int div, int from, int to) {
+	protected int[] mMS_helper(int[] array, int div, int from, int to, int[][] merged_divs) {
 		int[][] divs = new int[div][];
+		//System.out.println(c);
+		//catch falls zwischen to und from kein Eintrag oder Array leer oder null
+		if (to - from < 1 || array.length == 0 || array == null) {
+			return new int[0];
+		}
 		//Array zu from bis to verändern
 		int[] temparray = new int[to - from];
 		int i_t = 0;
@@ -50,6 +63,11 @@ public class MegaMergeSort {
 
 		//Stoppbedingung falls array Länge 0 oder 1
 		if (array.length == 1) {
+			merged_divs[c] = array;
+			c++;
+			//System.out.println(Arrays.deepToString(merged_divs));
+			//System.out.println(Arrays.deepToString(merged_divs));
+			//System.out.println(Arrays.toString(array));
 			return array;
 		}
 
@@ -94,13 +112,14 @@ public class MegaMergeSort {
 			} else {
 				megaMergeSort(divs[i], div, 0, divs[i].length);
 			}*/
-			megaMergeSort(divs[i], div, 0, divs[i].length);
+			//System.out.println(Arrays.deepToString(divs));
+			mMS_helper(divs[i], div, 0, divs[i].length, merged_divs);
 		}
-		//System.out.println(Arrays.toString(array));//
+		//System.out.println(Arrays.toString(array));
 		//System.out.println(Arrays.deepToString(divs));
 		//System.out.println(Arrays.toString(merge(divs, 0, div)));
 
-		return null;
+		return array;//merge(merged_divs, 0, merged_divs.length);
 	}
 
 	/**
@@ -162,14 +181,14 @@ public class MegaMergeSort {
 
 	public static void main(String[] args) {
 		MegaMergeSort mms = new MegaMergeSort();
-		int[] arr = new int[] { 1, 2, 6, 7, 4, 3, 8, 9, 0, 5};
-		//int[] arr = new int[] { 1, 2};
-		int[] res = mms.megaMergeSort(arr, 4);
-		//System.out.println(Arrays.toString(res));
+		//int[] arr = new int[] {1, 2, 6, 7, 4, 3, 8, 9, 0, 5};
+		int[] arr = new int[] {};
+		int[] res = mms.megaMergeSort(arr, 3);
+		System.out.println(Arrays.toString(res));
 
-		//System.out.println(Arrays.toString(mms.merge(new int[][] {{7}, {4}, {3}, {}}, 0, 3)));
+		//System.out.println(Arrays.toString(mms.merge(new int[][] {{1}, {2}, {6}, {7}, {4}, {3}, {8}, {9}, {0}, {5}}, 0, 9)));
 
 		//int[][] arrays = new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {7, 8, 9}, {5, 6, 7}};
-		//System.out.println(Arrays.toString(merge(arrays, -1, 4)));
+		//System.out.println(Arrays.toString(merge(arrays, 3, 2)));
 	}
 }
