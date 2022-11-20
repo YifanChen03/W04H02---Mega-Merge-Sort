@@ -117,6 +117,9 @@ public class MegaMergeSort {
 	}
 
 	protected int[] m_go(int[][] arrays, int from, int to, int[] m_merged) {
+		if (to - 1 == from) {
+			return arrays[from];
+		}
 		if (to - 1 - from > 0) {
 			//catch wenn to größer als die Anzahl von zu mergenden Arrays ist oder from ist negativ
 			if (to > arrays.length || from < 0) {
@@ -169,7 +172,7 @@ public class MegaMergeSort {
 		int[] res = mms.megaMergeSort(arr, 4);
 		System.out.println(Arrays.toString(res));
 
-		System.out.println(Arrays.toString(mms.merge(new int[][] {{1}, {2}, {3}, {4}}, 2, 4)));
+		System.out.println(Arrays.toString(mms.merge(new int[][] {{1}, {2}, {3}, {4}}, 3, 4)));
 
 		//int[][] arrays = new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {7, 8, 9}, {5, 6, 7}};
 		//System.out.println(Arrays.toString(merge(arrays, 3, 2)));
